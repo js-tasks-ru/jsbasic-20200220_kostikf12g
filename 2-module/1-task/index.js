@@ -4,5 +4,14 @@
  * @returns {Number}
  */
 function sumSalary(salaries) {
+    let result = 0;
 
+    for (key in salaries) {
+        if (typeof salaries[key] !== 'number') {
+            continue;
+        }
+        result += salaries[key];
+    }
+
+    return result;
 }
