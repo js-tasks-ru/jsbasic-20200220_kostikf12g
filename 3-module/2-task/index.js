@@ -17,8 +17,8 @@ function getMinMax(str) {
     }
 
     resultFilter = resultFilter
-                    .map((item) => parseFloat(item))
-                    .filter((item) => isFinite(item));
+                    .map(item => parseFloat(item))
+                    .filter(item => isFinite(item));
 
     return {
         'min': Math.min(...resultFilter),
