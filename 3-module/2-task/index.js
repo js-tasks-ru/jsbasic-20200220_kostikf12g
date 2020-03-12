@@ -4,4 +4,28 @@
  * @returns {{min:number, max:number}}  объект
  */
 function getMinMax(str) {
+    let resultFilter;
+
+    resultFilter = str.split(' ');
+
+    for (let item of resultFilter) {
+        if (item.includes(',')) {
+            let itemResultFilter = item.split(',');
+
+            for (let subItem of itemResultFilter) {
+                resultFilter.push(subItem);
+            }
+        }
+    }
+
+    resultFilter = resultFilter.map((item) => {
+        return parseFloat(item);
+    });
+
+    resultFilter = resultFilter.filter((item) => isFinite(item));
+
+    return {
+        'min': Math.min(...resultFilter),
+        'max': Math.max(...resultFilter)
+    }
 }
