@@ -4,9 +4,7 @@
  * @returns {{min:number, max:number}}  объект
  */
 function getMinMax(str) {
-    let resultFilter;
-
-    resultFilter = str.split(' ');
+    let resultFilter = str.split(' ');
 
     for (let item of resultFilter) {
         if (item.includes(',')) {
@@ -18,11 +16,9 @@ function getMinMax(str) {
         }
     }
 
-    resultFilter = resultFilter.map((item) => {
-        return parseFloat(item);
-    });
-
-    resultFilter = resultFilter.filter((item) => isFinite(item));
+    resultFilter = resultFilter
+                    .map(item => parseFloat(item))
+                    .filter(item => isFinite(item));
 
     return {
         'min': Math.min(...resultFilter),

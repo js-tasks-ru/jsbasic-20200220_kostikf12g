@@ -5,4 +5,15 @@
  * @returns {number[]}
  */
 function filterRange(arr, a, b) {
+    let result = [];
+
+    for (let item of arr) {
+        if (a <= b && item >= a && item <= b || 
+            item <= a && item >= b) {
+
+            result.push(item);
+        }
+    }
+
+    return result;
 }
