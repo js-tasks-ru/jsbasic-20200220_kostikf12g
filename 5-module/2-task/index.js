@@ -14,12 +14,60 @@
  * @constructor
  */
 function SortableTable(items) {
+
+  this.parseTitles = () => {
+    let thead = document.createElement('thead');
+    let titles = document.createElement('tr');
+
+    for (var i = 0; i < 4; i++) {
+      let tdTitle = document.createElement('td');
+
+      if (i === 0) {
+        tdTitle.innerText = 'Name';
+      } else if (i === 1) {
+        tdTitle.innerText = 'Age';
+      } else if (i === 2) {
+        tdTitle.innerText = 'Salary';
+      } else if (i === 3) {
+        tdTitle.innerText = 'City';
+      }
+
+      titles.append(tdTitle);
+    }
+
+    thead.append(titles);
+    this.el.append(thead);
+  }
+
+  this.parseData = () => {
+    let tbody = document.createElement('tbody');
+
+    for (let user of items) {
+      let tr = document.createElement('tr');
+
+      for (let key in user) {
+        let td = document.createElement('td');
+        td.innerText = user[key];
+
+        tr.append(td);
+      }
+
+      tbody.append(tr);
+    }
+
+    this.el.append(tbody);
+  }
+
+  this.clearData = () => {
+    this.el.lastElementChild.remove();
+  }
+
   /**
    * @property {Element} - обязательное свойство, которое ссылается на элемент <table>
    */
   this.el = document.createElement('table');
-  parseTitles(this.el);
-  parseData(items, this.el);
+  this.parseTitles();
+  this.parseData();
 
   /**
    * Метод выполняет сортировку таблицы
@@ -60,54 +108,7 @@ function SortableTable(items) {
       });
     }
 
-    clearData(this.el);
-    parseData(items, this.el);
+    this.clearData();
+    this.parseData();
   };
-
-  function clearData(element) {
-    element.lastElementChild.remove();
-  }
-
-  function parseTitles(element) {
-    let thead = document.createElement('thead');
-    let titles = document.createElement('tr');
-
-    for (var i = 0; i < 4; i++) {
-      let tdTitle = document.createElement('td');
-
-      if (i === 0) {
-        tdTitle.innerText = 'Name';
-      } else if (i === 1) {
-        tdTitle.innerText = 'Age';
-      } else if (i === 2) {
-        tdTitle.innerText = 'Salary';
-      } else if (i === 3) {
-        tdTitle.innerText = 'City';
-      }
-
-      titles.append(tdTitle);
-    }
-
-    thead.append(titles);
-    element.append(thead);
-  }
-
-  function parseData(data, element) {
-    let tbody = document.createElement('tbody');
-
-    for (let user of data) {
-      let tr = document.createElement('tr');
-
-      for (let key in user) {
-        let td = document.createElement('td');
-        td.innerText = user[key];
-
-        tr.append(td);
-      }
-
-      tbody.append(tr);
-    }
-
-    element.append(tbody);
-  }
 }
