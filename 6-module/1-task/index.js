@@ -19,7 +19,7 @@ class ClearedTable {
     this.data = data;
 
     this.el.classList.add('pure-table');
-    // this.parseTitles();
+    this.parseTitles();
     this.parseData();
 
     this.el.addEventListener("click", event => {
