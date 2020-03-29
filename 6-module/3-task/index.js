@@ -27,11 +27,9 @@ class Menu {
 
   constructor(element) {
     this.el = element;
-
     this.el.innerHTML = this.template;
 
     let listGroupItems = this.el.querySelectorAll('.list-group-item');
-
 
     for (let item of listGroupItems) {
       item.addEventListener('pointerenter', event => {
