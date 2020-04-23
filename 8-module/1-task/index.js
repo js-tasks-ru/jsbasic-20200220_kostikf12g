@@ -97,7 +97,10 @@ class ProductList {
   }
 
   updateCart() {
-    this.productCart = localStorage.getItem('cart-products').split(',') || [];
+    this.productCart = [];
+    if (localStorage.getItem('cart-products')) {
+        this.productCart = localStorage.getItem('cart-products').split(',') || [];
+    }
 
     this.products.addEventListener('click', e => {
       if (e.target.matches('[data-button-role="add-to-cart"]')) {
