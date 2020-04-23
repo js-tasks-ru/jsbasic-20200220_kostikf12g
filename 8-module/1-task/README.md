@@ -1,22 +1,3 @@
-## Учебный проект: компонента ProductList
-
-### Что нужно сделать:
-Создать класс компонеты ProductList, которая будет рисовать список товаров внутрь заданного элемента.
-Конструктор класса принимает элемент, в который он вставляет свою разметку. Массив товаров нужно получить с сервера, сделав запрос.
-Всю логику с запросом и отрисовкой, нужно поместить в метод `show()`. Причем этот метод должен вернуть промис от отрисовки.
-Пример использования:
-```js
-const element = document.querySelector('.product-list');
-const productList = new ProductList(element);
-
-productList.show()
-  .then(() => console.log('Как я писал ранее, метод должен вернуть промис'));
-
-```
-
-### Примерный алгоритм выполнения:
-
-- Сделать GET запрос за МАССИВОМ товаров с помощь fetch('/assets/data/products.json'); !!! Не забудьте преобразовать ответ, вызвав метод "json()". В результате этого шага вы получите массив объектов товаров
 Пример объекта для ОДНОГО товара:
 ```js
 const product = {
@@ -32,52 +13,6 @@ const product = {
     oldPrice: null, // Строка со старой ценой или null, если старой цены нет. Если старая цена есть, ее нужно показать
 }
 ```
-
-- Отрисовать разметку компоненты:
-```html
-Основа разметки всей компоненты, в которую нужно вставить список карточек:
-<div class="row justify-content-end">
-    <div class="col-lg-9">
-        <h3 class="section-title">Top Recommendations for You</h3>
-        <div class="row homepage-cards">
-            <!--ВОТ ЗДЕСЬ БУДУТ КАРТОЧКИ ТОВАРОВ-->
-        </div>
-    </div>
-</div>
-```
-
-- Разметка карточки товара:
-```html
-<div data-product-id="1" class="products-list-product col-md-6 col-lg-4 mb-4">
-    <div class="card">
-        <div class="card-img-wrap">
-            <img class="card-img-top" src="https://iliakan.github.io/course-project/assets/images/turntable.png" alt="Card image cap">
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Victrola Pro USB Bluetooth Turntable Vinyl to MP3 Function</h5>
-            <div class="rate">
-                <i class="icon-star checked"></i>
-                <i class="icon-star checked"></i>
-                <i class="icon-star checked"></i>
-                <i class="icon-star checked"></i>
-                <i class="icon-star checked"></i>
-                <span class="rate-amount ml-2">24</span>
-            </div>
-            <p class="card-text price-text discount"><strong>€ 129.92</strong>
-            <small class="ml-2">€ 250</small></p>
-            
-            <button class="product-add-to-cart" data-button-role="add-to-cart">
-              Add to cart
-            </button>
-        </div>
-    </div>
-</div>
-```
-- https://codepen.io/Dolgach/pen/EqbeEx?editors=0010 вот здесь мы уже рисовали звезды. !!! Обратите внимание на то, что там используется другой подход и другие CSS классы, просто скопировать и вставить не получится.
-- CSS Классы для звездочек
-    - "icon-star" - базовый класс, который должен быть у всех звезд
-    - "checked" - если звезда закрашена
-    - "active" - если звезда не закрашена, но активна (Активная звезда имеет желтую окантовку, неактивная - серую)
 
 * Разметка для цены имеет несколько состояний:
 Обычная цена, когда у нас нет старой цены:
