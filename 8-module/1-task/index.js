@@ -7,7 +7,7 @@ class ProductList {
   }
 
   show() {
-    this.promiseShow = fetch('/assets/data/products.json')
+    return fetch('/assets/data/products.json')
         .then(res => { 
             return res.json();
         })
@@ -18,8 +18,6 @@ class ProductList {
             this.products = this.el.querySelector('.homepage-cards');
             this.updateCart();
         });
-
-    return this.promiseShow;
   }
 
   renderProductsBlock(products) {
