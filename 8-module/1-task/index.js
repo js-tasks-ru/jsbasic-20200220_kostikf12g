@@ -7,13 +7,19 @@ class ProductList {
   }
 
   show() {
-    return fetch('/assets/data/products.json')
+    this.promiseShow = fetch('/assets/data/products.json')
         .then(res => { 
             return res.json();
         })
         .then(products => {
             this.renderProductsBlock(products);
+        })
+        .then(() => {
+            this.products = this.el.querySelector('.homepage-cards');
+            this.updateCart();
         });
+
+    return this.promiseShow;
   }
 
   renderProductsBlock(products) {
@@ -21,7 +27,10 @@ class ProductList {
     mainBlock.className = 'row justify-content-end';
     mainBlock.innerHTML = 
         `<div class="col-lg-9">
-            <h3 class="section-title">Top Recommendations for You</h3>
+            <h3 class="section-title">
+                Top Recommendations for You
+                <a href="/checkout.html">Your Cart</a>
+            </h3>
             ${this.renderProductsList(products)}
         </div>`;
 
@@ -73,8 +82,6 @@ class ProductList {
   }
 
   renderProductPrice(price, oldPrice) {
-    let productPrice = '';
-
     if (oldPrice) {
         return `
             <p class="card-text price-text discount">
@@ -87,9 +94,23 @@ class ProductList {
                 <strong>${price}</strong>
             </p>`;
     }
+  }
 
+  updateCart() {
+    this.productCart = localStorage.getItem('cart-products').split(',') || [];
 
-    return productPrice;
+    this.products.addEventListener('click', e => {
+      if (e.target.matches('[data-button-role="add-to-cart"]')) {
+        let productId = e.target.closest('.products-list-product').id;
+        let isAnswerUserOK = confirm('Вы уверенны, что хотите добавить этот товар в корзину?');
+
+        if (isAnswerUserOK && !this.productCart.includes(productId)) {
+            this.productCart.push(productId);
+
+            localStorage.setItem('cart-products', this.productCart);
+        }
+      }
+    });
   }
 }
 
