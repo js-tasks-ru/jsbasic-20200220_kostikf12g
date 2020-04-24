@@ -95,20 +95,21 @@ class ProductList {
   }
 
   updateCart() {
-    this.productCart = [];
-    if (localStorage.getItem('cart-products')) {
-        this.productCart = localStorage.getItem('cart-products').split(',') || [];
+    this.productsCart = [];
+
+    let productsAddedJSON = localStorage.getItem('cart-products');
+    if (productsAddedJSON) {
+        this.productsCart = JSON.parse(productsAddedJSON);
     }
 
     this.products.addEventListener('click', e => {
       if (e.target.matches('[data-button-role="add-to-cart"]')) {
-        let productId = e.target.closest('.products-list-product').id;
+        let productId = +e.target.closest('.products-list-product').id;
         let isAnswerUserOK = confirm('Вы уверенны, что хотите добавить этот товар в корзину?');
 
-        if (isAnswerUserOK && !this.productCart.includes(productId)) {
-            this.productCart.push(productId);
-
-            localStorage.setItem('cart-products', this.productCart);
+        if (isAnswerUserOK && !this.productsCart.find(item => item.id === productId)) {
+            this.productsCart.push({'id' : productId});
+            localStorage.setItem('cart-products', JSON.stringify(this.productsCart));
         }
       }
     });
