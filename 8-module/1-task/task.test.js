@@ -103,7 +103,3 @@ describe('8-module-1-task', () => {
   });
 
 });
-
-
-
-
