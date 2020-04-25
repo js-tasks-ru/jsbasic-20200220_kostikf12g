@@ -13,6 +13,7 @@ class ProductList {
         })
         .then(products => {
             this.renderProductsBlock(products);
+            this.productsData = products;
         })
         .then(() => {
             this.products = this.el.querySelector('.homepage-cards');
@@ -104,11 +105,12 @@ class ProductList {
 
     this.products.addEventListener('click', e => {
       if (e.target.matches('[data-button-role="add-to-cart"]')) {
-        let productId = +e.target.closest('.products-list-product').id;
+        let productCurrentId = +e.target.closest('.products-list-product').id;
+        let productCurrentData = this.productsData.filter(item => item.id === productCurrentId)[0];
         let isAnswerUserOK = confirm('Вы уверенны, что хотите добавить этот товар в корзину?');
 
-        if (isAnswerUserOK && !this.productsCart.find(item => item.id === productId)) {
-            this.productsCart.push({'id' : productId});
+        if (isAnswerUserOK && !this.productsCart.find(item => item.id === productCurrentId)) {
+            this.productsCart.push(productCurrentData);
             localStorage.setItem('cart-products', JSON.stringify(this.productsCart));
         }
       }
