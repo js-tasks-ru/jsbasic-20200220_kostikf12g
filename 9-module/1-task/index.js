@@ -11,7 +11,6 @@ class CheckoutProductList {
     this.updateCart();
   }
 
-
   renderProductsBlock() {
     let productList = '';
     let mainBlock = document.createElement('div');
